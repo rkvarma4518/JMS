@@ -1,20 +1,23 @@
-# Use an official Python runtime as a parent image
-FROM python:3.8-slim
+# Use a base image that has Python already installed
+FROM python:3.8
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y git
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+# Copy the requirements file
+COPY requirements.txt .
 
-# Install any needed packages specified in requirements.txt
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+# Clone detectron2 from GitHub
+RUN pip install --no-cache-dir git+https://github.com/facebookresearch/detectron2.git@dd2db71b0f8d855b71cac655186cbddca1bfda93
 
-# Define environment variable
-ENV NAME World
+# Copy your application code
+COPY . .
 
-# Run app.py when the container launches
+# Specify the command to run on container start
 CMD ["python", "app.py"]
