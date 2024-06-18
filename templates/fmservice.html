@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FM Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #07466f;
+            /* Navy Blue background */
+            overflow: hidden;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            /* Add a subtle shadow */
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+        }
+
+        .brand img {
+            height: 30px;
+            /* Adjust the height of the FMS name symbol */
+            width: 70px;
+            margin-right: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tabs li {
+            margin-right: 20px;
+        }
+
+        .tabs a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .tabs a:hover {
+            color: #2ecc71;
+            /* Change the color on hover as per your preference */
+        }
+
+        .sign-in-btn {
+            background-color: #3498db;
+            color: #ecf0f1;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-left: 20px;
+            /* Adjusted the margin between pages and Sign In button */
+        }
+
+        .sign-in-btn:hover {
+            background-color: #2980b9;
+        }
+
+
+
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            box-sizing: border-box;
+            width: calc(33.333% - 40px);
+            /* Adjusted for padding and margin */
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+        }
+
+        .apply-button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .apply-button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            margin: 8px 0;
+            color: #555;
+        }
+
+        .box p:first-child {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="brand">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="FMS">
+        </div>
+        <ul class="tabs">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('fm_service') }}">FM Service</a></li>
+            <li><a href="{{ url_for('contact_us') }}">Contact Us</a></li>
+
+            {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('sign') }}" class="sign-in-btn">Logout</a></li>
+            {% else %}
+            <li><a href="{{ url_for('sign') }}" class="sign-in-btn">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+
+
+    <div class="container">
+        {% for item in items %}
+        <div class="box">
+            {% for key, value in item.items() %}
+            {% if key == 'apply_link' %}
+            <a href="{{ value }}" class="apply-button">Apply</a>
+            {% else %}
+            <p>{{ key }}: {{ value }}</p>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>

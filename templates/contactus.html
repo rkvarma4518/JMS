@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            background-color: #07466f;
+            /* Navy Blue background */
+            overflow: hidden;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            /* Add a subtle shadow */
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+        }
+
+        .brand img {
+            height: 30px;
+            /* Adjust the height of the FMS name symbol */
+            width: 70px;
+            margin-right: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tabs li {
+            margin-right: 20px;
+        }
+
+        .tabs a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .tabs a:hover {
+            color: #2ecc71;
+            /* Change the color on hover as per your preference */
+        }
+
+        .sign-in-btn {
+            background-color: #3498db;
+            color: #ecf0f1;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-left: 20px;
+            /* Adjusted the margin between pages and Sign In button */
+        }
+
+        .sign-in-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label, input, textarea {
+            display: block;
+            margin-bottom: 20px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        textarea {
+            resize: none;
+            height: 150px;
+        }
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="brand">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="FMS">
+        </div>
+        <ul class="tabs">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('fm_service') }}">FM Service</a></li>
+            <li><a href="{{ url_for('contact_us') }}">Contact Us</a></li>
+
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('sign') }}" class="sign-in-btn">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('sign') }}" class="sign-in-btn">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="container">
+        <h2>Contact Us</h2>
+        <form action="#" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message (max 250 characters):</label>
+            <textarea id="message" name="message" maxlength="250" required></textarea>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
