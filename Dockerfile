@@ -10,8 +10,11 @@ WORKDIR /app
 # Copy the requirements file
 COPY requirements.txt .
 
-# Install Python dependencies
+# Install Python dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Install torch separately
+RUN pip install --no-cache-dir torch torchvision
 
 # Clone detectron2 from GitHub
 RUN pip install --no-cache-dir git+https://github.com/facebookresearch/detectron2.git@dd2db71b0f8d855b71cac655186cbddca1bfda93
